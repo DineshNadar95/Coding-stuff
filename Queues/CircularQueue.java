@@ -1,4 +1,4 @@
-import java.util.*;
+package Queues;
 
 class MyCircularQueue {
 

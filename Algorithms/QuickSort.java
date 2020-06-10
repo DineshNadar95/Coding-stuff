@@ -1,3 +1,5 @@
+package Algorithms;
+
 public class QuickSort {
 
     public static void QSort(int[] array, int low, int high){
