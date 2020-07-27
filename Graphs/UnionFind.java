@@ -17,7 +17,7 @@ class Graph {
 
     int find(int[] parent, int i){
         if(parent[i] == -1)
-            return parent[i];
+            return i;
         
         return find(parent, parent[i]);
     }
