@@ -25,7 +25,7 @@ public class LargestPalindromeProduct {
             int n = in.nextInt(); 
             int globalProd = Integer.MIN_VALUE;
 
-            for(int a=99; a<=999; a=a+1){
+            for(int a=99; a<=999; a=a+11){
                 int prod = 1;
                 for(int b=99; b<=999; b++){
                     prod = a*b;
