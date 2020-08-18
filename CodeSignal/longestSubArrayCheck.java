@@ -9,7 +9,7 @@ class longestSubArrayCheck {
 		//2. a contains b as a contiguous subarray
 		//3. b is the longest of the contiguous subarrays of a 
 		//   which satisfy both the conditions
-		
+		Arrays.sort(a);
 		
 		Set<Integer> hashC = new HashSet<>();
 		for(int z: c)
@@ -37,6 +37,18 @@ class longestSubArrayCheck {
 		int[] a = new int[]{1,1,5,1,2};
 		int[] b = new int[]{1,2};
 		int[] c = new int[]{2,1};
+		
+		System.out.println("Answer: "+util(a, b, c));
+		System.out.println("========");
+		a = new int[]{1,2,3,6,1,1,1};
+		b = new int[]{1,2,3};
+		c = new int[]{2,1};
+		
+		System.out.println("Answer: "+util(a, b, c));
+		System.out.println("========");
+		a = new int[]{1,2,2,3,2,1,3};
+		b = new int[]{3,2,1,3};
+		c = new int[]{2,1,3};
 		
 		System.out.println("Answer: "+util(a, b, c));
 	}
