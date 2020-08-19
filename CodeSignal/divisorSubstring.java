@@ -4,6 +4,7 @@ public class divisorSubstring {
 		int n = (int)Math.pow(9,9);
 		int k = 3;
 		
+		
 		int result = 0;
 		Set<Integer> seen = new HashSet<>();
 		String number = String.valueOf(n);
