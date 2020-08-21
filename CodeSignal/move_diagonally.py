@@ -14,6 +14,8 @@ def move_diagonally(cols, rows, home_location, mall_location):
     count = 0
     while True:
         grid[x][y].add(direction_mapping[(dx, dy)])
+        
+        print("Adding new dir ",grid[x][y])
         if x == end_x and y == end_y:
             return count
         # print("old:", x, y)
@@ -47,6 +49,6 @@ print(move_diagonally(5, 3, (2, 0), (3, 2)))
 print(move_diagonally(5, 2, (0, 0), (0, 1)))
 print(move_diagonally(5, 2, (0, 0), (0, 4)))
 print(move_diagonally(5, 2, (1, 0), (1, 4)))
-print(move_diagonally(2, 5, (0, 0), (4, 1)))
-print(move_diagonally(2, 5, (0, 0), (4, 0)))
+#print(move_diagonally(2, 5, (0, 0), (4, 1)))
+#print(move_diagonally(2, 5, (0, 0), (4, 0)))
 
