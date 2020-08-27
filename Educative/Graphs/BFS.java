@@ -141,6 +141,51 @@ class Graph{
 		//this.adjacencyList[destination].insertAtEnd(source);
 		}
 	}
+	
+	public int find(int id, int[] parent){
+		if(parent[id] == -1)
+			return id;
+		return find(parent[id], parent);
+	}
+	
+	
+	public boolean detectCycle(){
+		int[] parent = new int[vertices];
+		for(int x=0; x<parent.length; x++)
+			parent[x] = -1;
+			
+		// union operation: attach representatives of both vertices
+		// iterate edges
+		for (int i = 0; i < vertices; i++)
+		{
+			if(adjacencyList[i]!=null){
+				System.out.print("|" + i + "| => ");
+
+				DoublyLinkedList<Integer>.Node temp = adjacencyList[i].getHeadNode();
+				while (temp != null)
+				{
+					System.out.print("[" + temp.data + "] -> ");
+					int xset = find(i, parent);
+					int yset = find(temp.data, parent);
+					
+					if(xset == yset)
+						return true; 
+						
+					parent[xset] = yset;
+					
+					temp = temp.nextNode;
+				}
+				System.out.println("null");
+			}
+			else{
+
+				System.out.println("|" + i + "| => "+ "null");
+			}
+		}
+		
+		return false;
+	}
+	
 	public void printGraph()
 	{
 		System.out.println(">>Adjacency List of Directed Graph<<");
@@ -225,5 +270,12 @@ class BFS {
 		}
 		
 		System.out.println("DFS: "+result);
+		
+		Graph obj2 = new Graph(3); 
+		obj2.addEdge(0,1);
+		obj2.addEdge(1,2);
+		obj2.addEdge(2,1);
+		obj2.printGraph();
+		System.out.println("Result: "+obj2.detectCycle());
 	}
 }
