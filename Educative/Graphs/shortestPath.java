@@ -245,6 +245,28 @@ class Graph{
 		return false;
 	}
 	
+	public void removeEdge(int source, int destination){
+		DoublyLinkedList<Integer>.Node temp = null;
+		DoublyLinkedList<Integer>.Node prev = null;
+
+		if(adjacencyList[source].getHeadNode().data == destination){
+			adjacencyList[source].headNode = adjacencyList[source].getHeadNode().nextNode;
+			return;
+		}
+		
+		if(adjacencyList[source].getHeadNode() != null){
+			temp = adjacencyList[source].getHeadNode();
+		}
+		prev = temp;
+		
+		while(temp != null){
+			if(temp.data == destination)
+				prev.nextNode = temp.nextNode;
+			prev = temp;
+			temp = temp.nextNode;
+		}
+	}
+	
 	public int shortestPath(int source, int destination){
 		int path = 0;
 		Queue<Integer> queue = new LinkedList<>();
@@ -281,6 +303,8 @@ public class shortestPath {
 		g.addEdge(5, 4);
 		g.addEdge(2, 4);
 		g.printGraph();
-		System.out.println("Shortest path"+g.shortestPath(0,3));
+		g.removeEdge(0, 1);
+		g.printGraph();
+		System.out.println("Shortest path"+g.shortestPath(2,4));
 	}
 }
