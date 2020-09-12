@@ -159,20 +159,30 @@ class Trie {
 		return getWords(root, x);
 	}
 	
-	public boolean isFormationPossible(String[] dict,String word) {
+	public boolean isFormationPossible(String[] dict, String word) {
 		// write your code here
-		return helper(word, 0);
+		return helper(root, word, 0);
 	}
 	
-	public boolean helper(String word, int index){
+	public boolean helper(TrieNode current, String word, int index){		
+		char[] arr = word.toCharArray();
 		
+		for(int i=0; i<arr.length; i++){
+			String word1 = word.substring(0,i);
+			String word2 = word.substring(i, word.length());
+			 //If both substrings are present in the trie, the condition is fulfilled
+			if(search(word1) && search(word2)) 
+				return true;
+		}
+		
+		return false;
 	}
 }
 
 class TrieDemo {
 	public static void main(String[] args) {
 		String[] keys = {"the", "a", "there", "answer", "any",
-									"by", "bye", "their","abc", "bat"};
+									"by", "bye", "their","abc", "bat", "hell","hello", "worl","oworld"};
 									
 		//String[] keys = {"bat","their"};
 		
