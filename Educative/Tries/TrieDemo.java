@@ -1,3 +1,4 @@
+import java.util.*;
 class TrieNode {
 	TrieNode[] links;
 	boolean isEnd;
@@ -110,6 +111,62 @@ class Trie {
 		return true;
 	}
 	
+	public int countWords(){
+		return countHelper(root);
+	}
+	
+	public int countHelper(TrieNode current){	
+		int result = 0;		
+		// base case: 
+		if(current.isEnd){
+			result += 1;
+		}
+		// normal case: 
+		for(int i=0; i<current.links.length; i++){
+			if(current.links[i] != null){
+				result += countHelper(current.links[i]);
+			}
+		}
+				
+		return result;
+	}
+	
+	//Recursive Function to generate all words
+	public List<String> getWords(TrieNode current, StringBuilder runningString) 
+	{
+		List<String> result = new ArrayList<>();
+		// base case
+		if(current.isEnd){
+			System.out.println("Is end "+runningString.toString());
+			result.add(runningString.toString());
+		}
+		// normal case
+		for(int i=0; i<current.links.length; i++){
+			if(current.links[i] != null){
+				runningString.append((char)(i+'a'));
+				result.addAll(getWords(current.links[i], runningString));
+				runningString.setLength(runningString.length() - 1);
+			}
+		}
+		
+		return result;
+	}
+	
+	public List<String> findWords() 
+	{
+		// write your code here
+		StringBuilder x = new StringBuilder();
+		return getWords(root, x);
+	}
+	
+	public boolean isFormationPossible(String[] dict,String word) {
+		// write your code here
+		return helper(word, 0);
+	}
+	
+	public boolean helper(String word, int index){
+		
+	}
 }
 
 class TrieDemo {
@@ -126,6 +183,15 @@ class TrieDemo {
 			System.out.println("Key inserted: "+keys[i]);
 		}
 		
+		System.out.println("Total word count: "+t.countWords());
+		
+		List<String> words = t.findWords();
+		for(String x: words)
+			System.out.print(x+"\t");
+		System.out.println();
+		
+		System.out.println("Is formation possible for helloworld? "+t.isFormationPossible(keys, "helloworld"));
+
 		t.delete("bat");
 		if(t.search("bat") == true){
 			System.out.println("bat --- " + "Found");
