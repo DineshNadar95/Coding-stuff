@@ -76,35 +76,30 @@ class Trie {
 	}
 	
 	public void delete(String key){
-		TrieNode currentNode = this.root;
-		deleteHelper(currentNode, key, 0);
+		deleteHelper(root, key, 0);		
 	}
 	
-	public boolean deleteHelper(TrieNode current, String key, int index){
-		
-		// base case 
-		if(index == key.length()){
-			// check if current end of the word
-			if(!current.isEnd)
+	public boolean deleteHelper(TrieNode current, String key, int depth){
+		if(depth == key.length()){
+			if(!current.isEnd){						//node shouldn't be deleted because part of prefix
 				return false;
-				
-			current.unMarkAsLeaf();
+			}
+			current.unMarkAsLeaf();					// no longer a leaf node; now check if this node has children
 			return hasNoChildren(current);
 		}
 		
-		char ch = key.charAt(index);
+		char ch = key.charAt(depth);
+		int index = getIndex(ch);
 		TrieNode node = current.links[index];
-		if (node == null) {
-			return false;
-		}
-		boolean shouldDeleteCurrentNode = deleteHelper(node, key, index + 1) && !node.isEnd;
-	 
-		if (shouldDeleteCurrentNode) {
-			current.links[index] = null;
-			return true;
-		}
+		if(node == null)
+			return false;							// key not present; do not modify the trie
 		
-		return false;	
+		boolean shouldDeleteCurrentNode = deleteHelper(node, key, depth + 1) && !node.isEnd;
+		if(shouldDeleteCurrentNode){
+			current.links[index] = null;
+			return hasNoChildren(current);
+		}
+		return false;
 	}
 	
 	public boolean hasNoChildren(TrieNode current){
@@ -112,7 +107,6 @@ class Trie {
 			if(current.links[i] != null)
 				return false;
 		}
-		
 		return true;
 	}
 	
@@ -120,10 +114,10 @@ class Trie {
 
 class TrieDemo {
 	public static void main(String[] args) {
-		//String[] keys = {"the", "a", "there", "answer", "any",
-		//							"by", "bye", "their","abc", "bat"};
+		String[] keys = {"the", "a", "there", "answer", "any",
+									"by", "bye", "their","abc", "bat"};
 									
-		String[] keys = {"bat","their"};
+		//String[] keys = {"bat","their"};
 		
 		Trie t = new Trie();
 		
