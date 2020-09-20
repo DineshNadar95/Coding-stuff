@@ -164,28 +164,32 @@ class Trie {
 		return helper(root, word, 0);
 	}
 	
-	public boolean helper(TrieNode current, String word, int index){		
+	public boolean helper(TrieNode current, String word, int index){			
 		char[] arr = word.toCharArray();
-		
+
 		for(int i=0; i<arr.length; i++){
-			String word1 = word.substring(0,i);
-			String word2 = word.substring(i, word.length());
-			 //If both substrings are present in the trie, the condition is fulfilled
-			if(search(word1) && search(word2)) 
-				return true;
+			// check if character present
+			index = getIndex(arr[i]);
+			// check if trie has child at that index
+			if(current.links[index] == null){
+				// see if another word starting
+				return false;
+			}else if(current.links[index].isEnd){
+				return helper(root, word.substring(i+1), 0);
+			}
+			current = current.links[index];
 		}
-		
-		return false;
+				
+		return current.isEnd ? true : false;
 	}
 }
 
 class TrieDemo {
 	public static void main(String[] args) {
-		String[] keys = {"the", "a", "there", "answer", "any",
-									"by", "bye", "their","abc", "bat", "hell","hello", "worl","oworld"};
-									
-		//String[] keys = {"bat","their"};
-		
+		//String[] keys = {"the", "hell","hello", "there", "answer", "any", "dragon", "world", "their", "inc", "hell", "oworld", "hellworldoooo"};
+					
+		String[] keys = {"news", "newspa", "paper", "geek"}; 
+				
 		Trie t = new Trie();
 		
 		for(int i=0; i<keys.length; i++){
@@ -200,9 +204,14 @@ class TrieDemo {
 			System.out.print(x+"\t");
 		System.out.println();
 		
-		System.out.println("Is formation possible for helloworld? "+t.isFormationPossible(keys, "helloworld"));
+		System.out.println("Is formation possible for helloworld? "+t.isFormationPossible(keys, "newspaper"));
 
 		t.delete("bat");
+		if(t.search("hell") == true){
+			System.out.println("hell --- " + "Found");
+		}else 
+			System.out.println("hell --- " + "Not found");
+			
 		if(t.search("bat") == true){
 			System.out.println("bat --- " + "Found");
 		}else 
