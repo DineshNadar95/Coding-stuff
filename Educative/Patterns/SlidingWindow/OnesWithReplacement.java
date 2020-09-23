@@ -6,24 +6,23 @@ class OnesWithReplacement {
 		//int k = 3;
 		
 		int windowStart = 0;
-		
-		int result = 0;
-		
-		int[] frequencyMap = new int[2];
-		int maxFrequency = 0;
+				
+		int result = Integer.MIN_VALUE;
+	
+        int ones = 0;
 		
 		for(int windowEnd = 0; windowEnd < input.length; windowEnd++){
-			frequencyMap[input[windowEnd]]++;
-			maxFrequency = Math.max(maxFrequency, frequencyMap[input[windowEnd]]);
-			
-			if(windowEnd - windowStart + 1 > maxFrequency + k){
-				frequencyMap[input[windowStart]]--;
+            if(input[windowEnd] == 1)
+                ones += 1;
+            
+			if(windowEnd - windowStart + 1 > ones + k){
+                if(input[windowStart] == 1)
+                    ones -= 1;
 				windowStart++;
 			}
-			
 			result = Math.max(result, windowEnd - windowStart + 1);
 		}
-		
+		        		
 		System.out.println("Result: "+result);
 	}
 }
